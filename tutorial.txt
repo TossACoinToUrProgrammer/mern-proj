@@ -1,0 +1,5 @@
+1.устанавливаем зависимости: express mongoose nodemon concurrently
+2.в app.js импортируем express, импортируем port из config, и запускаем сервер на этом порте
+3.импортируем mongoose, подключаемся с ней к mongoDB, и запускаем app.listen(на каком то порте)
+4.создаем файл auth.routes.js где описаны запросы register и login
+5.создаем models где описываются модели данных
