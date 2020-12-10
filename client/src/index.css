@@ -1,0 +1,16 @@
+@import "~materialize-css/dist/css/materialize.min.css";
+
+.auth__input label, .auth__input input {
+  color: #f1f1f1;
+}
+.auth__input label.active {
+  color: #f1f1f1 !important;
+}
+.auth__input input:focus {
+  box-shadow: none !important;
+  border-bottom: 1px solid  #f1f1f1 !important;
+}
+input:-webkit-autofill, input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #f1f1f1 !important;
+    -webkit-box-shadow: 0 0 0px 1000px #1565c0 inset !important;
+}

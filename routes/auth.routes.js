@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const User = require("../models/user");
-const config = require("../config/default.json");
+const config = require("config");
 const router = Router();
 
 router.post(
@@ -79,7 +79,7 @@ router.post(
         expiresIn: "1h", //Время действия токена
       });
 
-      return res.status(200).json({token, userId: user.id});
+      return res.json({token, userId: user.id});
     } catch (error) {
       res
         .status(500)
