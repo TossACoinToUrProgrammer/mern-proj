@@ -7,3 +7,4 @@
 7.импортируем jsonwebtoken для генерации токенов при авторизации
 8.начинаем работать над фронтендом 
 9.строка app.use(express.json({extended: true})); в server/app.js это миддлвейр для того, чтобы нод мог работать с json
+10.В запросах в headers нужно передавать 'ContentType: application/json'//не уверен в синтаксисе

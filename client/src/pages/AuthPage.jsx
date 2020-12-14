@@ -1,31 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../context/authContext";
 import { useHttp } from "../hooks/http.hooks";
 import { useMessage } from "../hooks/message.hook";
 
 const AuthPage = () => {
-    const {request, loading, error, clearError} = useHttp();
-    const [form, setForm] = useState({email:'', password: ''});
-    const message = useMessage();
-    useEffect(()=>{
-        message(error);
-        clearError();
-    }, [error, message, clearError]);
+  const auth = useContext(AuthContext);
+  const { request, loading, error, clearError } = useHttp();
+  const [form, setForm] = useState({ email: "", password: "" });
+  const message = useMessage();
+  
+  useEffect(() => {
+    message(error);
+    clearError();
+  }, [error, message, clearError]);
 
-    const changeHandler = (e) => {
-        setForm({...form, [e.target.name]: e.target.value});
-    }
-    const registerHandler = async() => {
-        try {
-            const data = await request('/api/auth/register', 'POST',  {...form});
-            message(data.message);
-        } catch (error) {}
-    }
-    const loginHandler = async() => {
-        try {
-            const data = await request('/api/auth/login', 'POST',  {...form});
-            message(data.message);
-        } catch (error) {}
-    }
+  const changeHandler = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const registerHandler = async () => {
+    try {
+      const data = await request("/api/auth/register", "POST", { ...form });
+      auth.login(data.token, data.userId);
+    } catch (error) {}
+  };
+
+  const loginHandler = async () => {
+    try {
+      const data = await request("/api/auth/login", "POST", { ...form });
+      auth.login(data.token, data.userId);
+    } catch (error) {}
+  };
 
   return (
     <div className="row">
@@ -40,7 +45,7 @@ const AuthPage = () => {
                   id="email"
                   type="text"
                   className="validate"
-                  name='email'
+                  name="email"
                   value={form.email}
                   onChange={changeHandler}
                 />
@@ -51,7 +56,7 @@ const AuthPage = () => {
                   id="password"
                   type="password"
                   className="validate"
-                  name='password'
+                  name="password"
                   value={form.password}
                   onChange={changeHandler}
                 />
@@ -68,7 +73,11 @@ const AuthPage = () => {
             >
               Войти
             </button>
-            <button disabled={loading} onClick={registerHandler} className="btn grey lighten-1 black-text">
+            <button
+              disabled={loading}
+              onClick={registerHandler}
+              className="btn grey lighten-1 black-text"
+            >
               Регистрация
             </button>
           </div>
